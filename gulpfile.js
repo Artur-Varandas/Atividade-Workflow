@@ -11,11 +11,6 @@ gulp.task('sass', function () {
     .pipe(gulp.dest('./dist/css/'));
 });
 
-// Watch de Compilação do Sass 
-gulp.task('sass:watch', function () {
-  gulp.watch('./source/scss/*.scss', ['sass']);
-});
-
 // Minifica o Html
 gulp.task('html', function() {
   return gulp.src('./source/index.html')
@@ -23,12 +18,11 @@ gulp.task('html', function() {
     .pipe(gulp.dest('./dist/'));
 });
 
-// Watch de Minificação do Html
-gulp.task('html:watch', function(){
-	gulp.watch('./source/index.html',['html'])
+// escuta os arquivos scss e html
+gulp.task("watch", function() {
+  gulp.watch('./source/scss/*.scss', ['sass']);
+  gulp.watch('./source/index.html',['html'])
 });
 
 // Task Default que verifica alteração nos arquivos .scss e .html
-gulp.task('default', ['sass:watch', 'html:watch'], function () {
-	gulp.watch('./source/');
-});
+gulp.task('default', ['sass', 'html', 'watch']);
